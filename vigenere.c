@@ -33,24 +33,33 @@ char * cipherString(char * keyword, char * text)
     int len = strlen(text);
     int move = 0;    
     char * cipherText = malloc(sizeof(char) * (len + 1));
-    char newChar = '0';
+    unsigned char newChar = '0';
     
     j = 0;
     for(i = 0; i < len; i++)
     {
-        move = keyword[j] - 'a';
-        /*printf("move - %d\n", move);*/
-        newChar = text[i] + move;
-        /*printf("newChar = %c\n", newChar);*/
-        if((text[i] >= 'a' && text[i] <= 'z') && (newChar > 'z'))
+        if(!((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z')))
         {
-            newChar = newChar - 26;
+           newChar = text[i];
         }
         else
         {
-            if((text[i] >= 'A' && text[i] <= 'Z') && newChar > 'Z')
+            move = keyword[j] - 'a';
+            /*printf("move - %d\n", move);*/
+            newChar = text[i] + move;
+            /*printf("newChar = %c %d\n", newChar, newChar);*/
+            if((text[i] >= 'a' && text[i] <= 'z') && (newChar > 'z'))
             {
+                /*printf("%c 1\n", text[i]);*/
                 newChar = newChar - 26;
+            }
+            else
+            {
+                if((text[i] >= 'A' && text[i] <= 'Z') && newChar > 'Z')
+                {
+                    /*printf("%c 2\n", text[i]);*/
+                    newChar = newChar - 26;
+                }
             }
         }
         cipherText[i] = newChar;
@@ -73,24 +82,31 @@ char * decipherString(char * keyword, char * text)
     int len = strlen(text);
     int move = 0;    
     char * cipherText = malloc(sizeof(char) * (len + 1));
-    char newChar = '0';
+    unsigned char newChar = '0';
     
     j = 0;
     for(i = 0; i < len; i++)
     {
-        move = keyword[j] - 'a';
-        /*printf("move - %d\n", move);*/
-        newChar = text[i] - move;
-        /*printf("newChar = %c\n", newChar);*/
-        if((text[i] >= 'a' && text[i] <= 'z') && (newChar < 'a'))
+        if(!((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z')))
         {
-            newChar = newChar + 26;
+           newChar = text[i];
         }
         else
         {
-            if((text[i] >= 'A' && text[i] <= 'Z') && newChar < 'A')
+            move = keyword[j] - 'a';
+            /*printf("move - %d\n", move);*/
+            newChar = text[i] - move;
+            /*printf("newChar = %c\n", newChar);*/
+            if((text[i] >= 'a' && text[i] <= 'z') && (newChar < 'a'))
             {
                 newChar = newChar + 26;
+            }
+            else
+            {
+                if((text[i] >= 'A' && text[i] <= 'Z') && newChar < 'A')
+                {
+                    newChar = newChar + 26;
+                }
             }
         }
         cipherText[i] = newChar;
