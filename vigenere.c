@@ -9,20 +9,28 @@ int main(int argc, char * * argv)
 {
     char * cipherText = NULL;
     
-    if(strcmp(argv[1], "-d") == 0)
+    if(argc < 3 || (strcmp(argv[1], "-d") == 0 && argc < 4))
     {
-        cipherText = decipherString(argv[2], argv[3]);
-        /*printf("%s\n", argv[3]);*/
-    }
-    else 
+        printf("Error: Invalid number of arguments. Please see documentation.\n");
+    }    
+    else
     {
-        cipherText = cipherString(argv[1], argv[2]);
-        /*printf("%s\n", argv[2]);*/
+        if(strcmp(argv[1], "-d") == 0)
+        {
+            cipherText = decipherString(argv[2], argv[3]);
+            /*printf("%s\n", argv[3]);*/
+        }
+        else 
+        {
+            cipherText = cipherString(argv[1], argv[2]);
+            /*printf("%s\n", argv[2]);*/
+        }
+
+        printf("%s\n", cipherText);
+
+        free(cipherText);
     }
-
-    printf("%s\n", cipherText);
-
-    free(cipherText);
+    return(0);
 }
 
 char * cipherString(char * keyword, char * text)
