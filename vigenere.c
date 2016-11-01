@@ -12,12 +12,12 @@ int main(int argc, char * * argv)
     if(strcmp(argv[1], "-d") == 0)
     {
         cipherText = decipherString(argv[2], argv[3]);
-        printf("%s\n", argv[3]);
+        /*printf("%s\n", argv[3]);*/
     }
     else 
     {
         cipherText = cipherString(argv[1], argv[2]);
-        printf("%s\n", argv[2]);
+        /*printf("%s\n", argv[2]);*/
     }
 
     printf("%s\n", cipherText);
